@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hackathon front page</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Firebase SDK v11.0.2 -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <nav>
+            <!-- Logo and Title -->
+            <div class="logo-container">
+                <img src="images/logo.jpg" alt="Logo"> <!-- Replace img/logo.png with your image path -->
+                <h2>Carona</h2>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Market</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Career</a></li>
+                <li><a href="#" class="get-started" id="getStartedBtn">Get Started</a></li>
+                <li><button id="logoutBtn" style="display: none;" class="logout">Logout</button></li>
+            </ul>
+
+        </nav>
+        <h3><a href="#">See Coranu Toturial</a></h3>
+
+        <div class="div">
+            <div class="content">
+                <h1>Insights from our team</h1>
+                <p>insights trading tools and features</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Blog Topics</h3>
+            <ul>
+                <li>Company</li>
+                <li>Design</li>
+                <li>Technology</li>
+                <li>Crypto</li>
+                <li>Artificial Intelligence</li>
+                <li>Work</li>
+            </ul>
+            <h3>Guide and Tools</h3>
+            <ul>
+                <li>Guidelines</li>
+                <li>Mentorship</li>
+                <li>Tutorial</li>
+                <li>Training</li>
+                <li>Career</li>
+                <li>Self Care</li>
+            </ul>
+        </aside>
+
+        <!-- Posts Section -->
+        <div class="posts" id="postscontainer">
+            <!-- Individual Post Div -->
+            <div class="post">
+                <div class="post-content">
+                    <p class="date">Mar 1</p>
+                    <h2>Powerful Trading Tools and Features for Experienced Investors</h2>
+                    <p class="description">I’m always trying to think of new and interesting business ideas...</p>
+                    <div class="meta">
+                        <span>Tools</span> ● By Mark Tuchel ● <span class="time">7 min read</span>
+                    </div>
+                </div>
+                <div class="post-image">
+                    <img src="./images/post2.jpeg" alt="Post Image">
+                </div>
+            </div>
+
+            <!-- Duplicate this post block for multiple posts -->
+            <div class="post">
+                <div class="post-content">
+                    <p class="date">Jan 2</p>
+                    <h2>We are Implementing AI and Technology</h2>
+                    <p class="description">New AI advancements to improve business and life efficiency...</p>
+                    <div class="meta">
+                        <span>AI</span> ● By Sarah Johnson ● <span class="time">5 min read</span>
+                    </div>
+                </div>
+                <div class="post-image">
+                    <img src="./images/post1.jpeg" alt="Post Image">
+                </div>
+            </div>
+
+          
+        </div>
+    </div>
+
+    <div class="newsletter-container">
+        <!-- Left Content -->
+        <div class="newsletter-content">
+            <p class="update-text">Stay up to date</p>
+            <h1 class="newsletter-title">Join Our Newsletter</h1>
+            <div class="email-form">
+                <input type="email" placeholder="Enter your email.." class="email-input">
+                <button class="submit-btn">Submit</button>
+            </div>
+            <p class="unsubscribe-text">*You can unsubscribe anytime</p>
+        </div>
+
+        <!-- Right Decorative Background -->
+        <div class="newsletter-background"></div>
+    </div>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.getElementById('getStartedButton').onclick = function () {
+            window.location.href = 'login.html';
+        };
+       
+
+    </script>
+
+    <script type="module" src="firebase.js"></script>
+    <script src="index.js"></script>  
+</body>
+
+</html>

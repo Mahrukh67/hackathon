@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Post</title>
+  <link rel="stylesheet" href="./css/nav.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  text-align: center;
+}
+
+#postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post {
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 0 auto;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+input[type="file"] {
+  padding: 0;
+}
+
+#imagePreview {
+  max-width: 100%;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+button[type="submit"] {
+  background-color: #008CBA;
+}
+
+  </style>
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Edit Post</title>
+      <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <nav>
+            <!-- Logo and Title -->
+            <div class="logo-container">
+                <img src="images/logo.jpg" alt="Logo"> <!-- Replace img/logo.png with your image path -->
+                <h2>Carona</h2>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="#">Market</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Career</a></li>
+                <li><a href="#" class="get-started" id="getStartedBtn">Get Started</a></li>
+                <li><button id="logoutBtn" style="display: none;" class="logout">Logout</button></li>
+            </ul>
+
+        </nav>
+      <h1>Create or Edit Post</h1>
+    
+      <form id="postForm">
+        <label for="title">Post Title:</label>
+        <input type="text" id="title" required /><br />
+    
+        <label for="content">Content:</label>
+        <textarea id="content" required></textarea><br />
+    
+        <label for="image">Post Image:</label>
+        <input type="file" id="image" accept="image/*" /><br />
+    
+        <!-- Display image preview -->
+        <div id="imagePreviewContainer">
+          <img id="imagePreview" src="" alt="Image Preview" />
+        </div>
+    
+        <button type="submit">Submit Post</button>
+      </form>
+    
+  
+    
+  <script>
+   window.onload = function() {
+  const editPost = JSON.parse(localStorage.getItem("editPost"));
+
+  if (editPost) {
+    // Pre-fill the form with the existing post data
+    document.getElementById("title").value = editPost.title;
+    document.getElementById("content").value = editPost.content;
+    document.getElementById("imagePreview").src = editPost.image;
+  }
+
+  // Handle image selection
+  document.getElementById("image").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        document.getElementById("imagePreview").src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Handle form submission
+  document.getElementById("postForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("content").value;
+    const date = new Date().toLocaleDateString();
+    const author = "Mark Tuchel"; // Update this as needed
+    const imageFile = document.getElementById("image").files[0];
+    let image = editPost ? editPost.image : ''; // Preserve image if editing
+
+    if (imageFile) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        image = event.target.result;
+
+        const post = {
+          title,
+          content,
+          date,
+          author,
+          image
+        };
+
+        const posts = JSON.parse(localStorage.getItem("posts")) || [];
+
+        if (editPost) {
+          const index = posts.findIndex(p => p.title === editPost.title); // Find the post to edit
+          posts[index] = post; // Update the post
+        } else {
+          posts.push(post); // Add a new post
+        }
+
+        localStorage.setItem("posts", JSON.stringify(posts));
+        localStorage.removeItem("editPost"); // Clear the edit data
+        alert("Post submitted successfully!");
+        window.location.href = "index.html"; // Redirect to the posts page
+      };
+      reader.readAsDataURL(imageFile);
+    } else {
+      alert("Please upload an image.");
+    }
+  });
+};
+
+  </script>
+</body>
+</html>

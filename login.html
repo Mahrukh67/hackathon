@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/form.css">
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script>
+</head>
+<body>
+    <div class="form-container">
+      <div class="form-image">
+        <img src="./images/img1.jpeg" alt="Signup Banner" />
+      </div>
+  
+      <h2>Login Form</h2>
+      <form id="loginForm">
+    
+        <input type="email" id="email" name="email" placeholder="Email" required autocomplete="email">
+        <input type="password" id="password" name="password" placeholder="Password" required autocomplete="current-password">
+        
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+    <script src="login.js" type="module"></script>
+</body>
+</html>
+

@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create or Edit Post</title>
+  <link rel="stylesheet" href="./css/nav.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #imagePreview {
+      margin-top: 10px;
+      max-width: 200px;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+    <nav>
+        <!-- Logo and Title -->
+        <div class="logo-container">
+            <img src="images/logo.jpg" alt="Logo"> <!-- Replace img/logo.png with your image path -->
+            <h2>Carona</h2>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="#">Market</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Career</a></li>
+            <li><a href="#" class="get-started" id="getStartedBtn">Get Started</a></li>
+            <li><button id="logoutBtn" style="display: none;" class="logout">Logout</button></li>
+        </ul>
+
+    </nav>
+  <h1>Create New Post</h1>
+
+  <form id="postForm">
+    <label for="title">Post Title:</label>
+    <input type="text" id="title" required /><br />
+    
+    <label for="content">Content:</label>
+    <textarea id="content" required></textarea><br />
+    
+    <label for="image">Post Image:</label>
+    <input type="file" id="image" accept="image/*" /><br />
+    
+    <img id="imagePreview" src="" alt="Image Preview" />
+    
+    <button type="submit">Submit Post</button>
+  </form>
+
+  <script>
+    // Check if we are editing a post
+    const editPost = JSON.parse(localStorage.getItem("editPost"));
+
+    if (editPost) {
+      document.getElementById("title").value = editPost.title;
+      document.getElementById("content").value = editPost.content;
+      document.getElementById("imagePreview").src = editPost.image;
+    }
+
+    document.getElementById("image").addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          document.getElementById("imagePreview").src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById("postForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+      const date = new Date().toLocaleDateString();
+      const author = "Mark Tuchel";
+      const time = "5 min read";
+      
+      const imageFile = document.getElementById("image").files[0];
+      let image = '';
+
+      if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          image = event.target.result;
+
+          const post = {
+            title,
+            content,
+            date,
+            author,
+            time,
+            image
+          };
+
+          const posts = JSON.parse(localStorage.getItem("posts")) || [];
+
+          if (editPost) {
+            const index = posts.findIndex(p => p.title === editPost.title); // Find the post to edit
+            posts[index] = post; // Replace the old post with the new one
+          } else {
+            posts.push(post); // Add a new post if it's a new post
+          }
+
+          localStorage.setItem("posts", JSON.stringify(posts));
+
+          // Clear the edit data after saving
+          localStorage.removeItem("editPost");
+
+          alert("Post submitted successfully!");
+          window.location.href = "index.html";
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        alert("Please upload an image.");
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+

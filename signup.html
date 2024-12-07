@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <!-- Firebase SDK v11.0.2 -->
+<script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script>
+
+    <link rel="stylesheet" href="./css/form.css"> <!-- Link to your CSS -->
+</head>
+<body>
+  <div class="form-container">
+    <!-- Image above the form -->
+    <div class="form-image">
+      <img src="./images/img1.jpeg" alt="Signup Banner" />
+    </div>
+
+    <h2>SignUp Form</h2>
+    <form id="signupForm">
+     
+
+      <!-- Form fields -->
+      <input type="text" id="name" name="name" placeholder="Name" required>
+      <input type="text" id="phone" name="phone" placeholder="Phone" required>
+      <input type="email" id="email" name="email" placeholder="Email" required autocomplete="email">
+      <input type="password" id="password" name="password" placeholder="Password" required autocomplete="current-password">
+      
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  <script src="signup.js" type="module"></script>
+</body>
+</html>
